@@ -9,6 +9,7 @@
 #define CANT_CLASE_VUELO 3
 #define POS_CARACTERISTICA_VUELO 3
 #define POR_CLASE_VUELO 2
+
 void validarImput(int argc){
 
 	if (argc != CANT_PARAMETROS){
@@ -18,48 +19,23 @@ void validarImput(int argc){
 }
 
 
-// int main(int argc, char const *argv[])
-	// {
-	// 	int i=5;
-	// 	validarImput(argc);
-		
-	// 	FILE * archivo=fopen( argv[1], "r");
-	// 	char * lineaAux = malloc(MAX_TEXTO);
-		
-	// 	while (i--){
-			
-	// 		lineaAux= fgets(lineaAux, MAX_TEXTO, archivo);
-			
-	// 		if(lineaAux == NULL){
-
-	// 			printf(" ERROR \n");
-	// 			return 3;
-	// 		}
-	// 		printf("%s\n", lineaAux);
-	// 		char * palabra = strtok(lineaAux, ";");
-	// 		while( palabra != NULL ){
-				
-	// 			printf("%s\n",palabra );
-
-	// 			palabra=strtok(NULL, ";");
-	// 		}
-	// 		printf("%s\n", lineaAux);
-	// 	}
-	// 	return 0;
-	// }
-
-void obtenerLineaTokens(char * linea, char * vec[], int dim, FILE * archivo ){ // Recibe los vectores para no tener que generar y borrar espacio muchas veces
+int obtenerLineaTokens(char * linea, char * vec[], int dim, FILE * archivo ){ // Recibe los vectores para no tener que generar y borrar espacio muchas veces
 
 	linea=fgets(linea, MAX_TEXTO, archivo);
+	
+	if (strchr(linea,';') == NULL )
+		return 0;
 
 	vec[0] = strtok(linea, ";");
 
 	for (int i = 1; i < dim; ++i)
 		vec[i]=strtok( NULL, ";" );	
+
+	return 1;
 }
 
 //Q3-Ans es una matriz con las 6 posibles combinaciones
-void query3Back ( char *vecMov[], char * Q3Carac[], char * Q3Clase[], int Q3Ans[][CANT_CLASE_VUELO]){
+void  query3Back ( char *vecMov[], char * Q3Carac[], char * Q3Clase[], int Q3Ans[][CANT_CLASE_VUELO]){
 
 	int x,y,i;
 
@@ -95,10 +71,8 @@ int main(int argc, char const *argv[]){
 
 	obtenerLineaTokens(lineaAux,vecMov,PARAMETROS_MOV,archMov);
 	while(! feof(archMov) && flag){
-		obtenerLineaTokens(lineaAux,vecMov,PARAMETROS_MOV,archMov);
-		if(vecMov[0] == NULL)
-			flag = 0;
-		else 
+		flag = obtenerLineaTokens(lineaAux,vecMov,PARAMETROS_MOV,archMov);
+		if( flag )
 			query3Back(vecMov,Q3Carac,Q3Clase,Q3Ans);
 	}
 	query3Front(Q3Ans,Q3Carac,Q3Clase);
