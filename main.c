@@ -108,7 +108,7 @@ void query3Back ( char *vecMov[], char * vecCarac[], char * vecClase[], int Q3An
 }
 
 int main(int argc, char const *argv[]){
-		validarEntrada(argc);
+	validarEntrada(argc);
 	
 	FILE * archMov = fopen(argv[1], "r");
 
@@ -134,6 +134,7 @@ int main(int argc, char const *argv[]){
 		flag= obtenerLineaTokens(lineaAux,vecMov,cantParametros,archMov);
 		
 		if(flag){
+		//	printf("aaaaaaaaaaaaa\n");
 			query3Back(vecMov,vecCarac,vecClase,Q3Ans);
 			query2back(vecMov, Q2Ans, vecCarac);
 			query1back(Q1Ans,vecMov,vecTipoMov);

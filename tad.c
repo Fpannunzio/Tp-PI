@@ -122,5 +122,3 @@ static int compNumAlf(const node * e1, const  node * e2 ){
 	else
 		return strcmp(e1->oaci,e2->oaci);
 }
-
-

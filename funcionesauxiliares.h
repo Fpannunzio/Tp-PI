@@ -25,7 +25,6 @@ int obtenerLineaTokens(char * linea, char * vec[], int dim, FILE * archivo );
 ** siendo asi aquel que empieza con S
 ** y su tercer caracter es una letra.
 */
-
 int validarOACI(char *oaci);
 
 /* Formula para calcular que dia de la semana fue una fecha en particular 
