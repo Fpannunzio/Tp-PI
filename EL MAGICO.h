@@ -1,4 +1,5 @@
 // movimientos y aeropuertos
+
 void validarEntrada(int argc);
 
 void query1front(vectorADT Q1Ans);

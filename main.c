@@ -83,7 +83,9 @@ void query2back(char *vecMov[], int Q2Ans[][CANT_CARACTERISTICA_VUELO], char * c
 	
 	int i=0;
 	int dia=calcularDia(vecMov[0]);
-	
+	if(toupper(vecMov[POS_CARACTERISTICA_VUELO][0]) == 'N')
+		return;
+
 	// Solo compara la primer letra de "cabotaje" o "internacional"
 	if(vecMov[POS_CARACTERISTICA_VUELO][0] != carac[0][0])
 		i++;
@@ -94,10 +96,14 @@ void query2back(char *vecMov[], int Q2Ans[][CANT_CARACTERISTICA_VUELO], char * c
 void query3Back ( char *vecMov[], char * vecCarac[], char * vecClase[], int Q3Ans[][CANT_CLASE_VUELO]){
 
 	int x,y,i;
+	
+	if(toupper(vecMov[POS_CARACTERISTICA_VUELO][0]) == 'N')
+		return;
 
 	// Comparamos solo la primer letra ya que es informacion suficiente.
 	// Si es verdadero entonces x = 1, por lo tanto es un vuelo internacional, caso contrario es de cabotaje.
 	x = vecMov[POS_CARACTERISTICA_VUELO][0] ==  vecCarac[1][0]; 
+
 
 	//Comparamos la primer letra para ver que clase de vuelo es.
 	for (i = 0; i < CANT_CLASE_VUELO; ++i)
@@ -108,6 +114,7 @@ void query3Back ( char *vecMov[], char * vecCarac[], char * vecClase[], int Q3An
 }
 
 int main(int argc, char const *argv[]){
+		
 	validarEntrada(argc);
 	
 	FILE * archMov = fopen(argv[1], "r");
@@ -134,7 +141,6 @@ int main(int argc, char const *argv[]){
 		flag= obtenerLineaTokens(lineaAux,vecMov,cantParametros,archMov);
 		
 		if(flag){
-		//	printf("aaaaaaaaaaaaa\n");
 			query3Back(vecMov,vecCarac,vecClase,Q3Ans);
 			query2back(vecMov, Q2Ans, vecCarac);
 			query1back(Q1Ans,vecMov,vecTipoMov);

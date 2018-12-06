@@ -15,12 +15,14 @@ vectorADT newVec(char const * file);
 */
 void ordenaVec(vectorADT resp, int crit);
 
-/* Se asume que si desea imprimir el archivo es porque se termino de usar el TAD, es por eso que se realizan los free 
-** de los elementos contenidos por el vector dentro de esta funcion.
+/*
+**Se asume que si desea imprimir el archivo es porque se termino de usar el TAD, es por eso que se realizan los free 
+**de los elementos contenidos por el vecotr dentro de esta funcion.
 */
 void imprimirEnArchivo(vectorADT resp, FILE * archivo);
 
 /* Free del tad
 */
 void freeVec(vectorADT resp);
-#endif //__tad_h
+
+#endif

@@ -39,7 +39,7 @@ vectorADT newVec(char const * file){
 	//Calcular cantidad elementos aeropuertos.csv
 	int cantParam=calcularLinea(lineaAux,&vecLinea,f);
 
-	while(! feof(f) && flag){
+	while( !feof(f) && flag ){
 		
 		flag = obtenerLineaTokens(lineaAux,vecLinea,cantParam,f);
 		
@@ -47,7 +47,6 @@ vectorADT newVec(char const * file){
 			
 			if(k%BLOQUEVEC == 0)
 				resp->vec=realloc(resp->vec, (k + BLOQUEVEC) * sizeof(node));
-
 			resp->vec[k++]=completaVec(vecLinea);
 		}
 	}
@@ -85,8 +84,6 @@ void agregarItem(vectorADT resp, char * item){
 	node * elem = bsearch(&aux, resp->vec, resp->dim, sizeof(node), (int (*)(const void * , const void * ) )compAlfabetico);
 	if(elem != NULL)
 		elem->cantMov++;
-	else
-		printf("No se encontro el OACI %s en la planilla Aeropuertos.\n",item);
 }
 
 void imprimirEnArchivo(vectorADT resp, FILE * archivo){
@@ -101,6 +98,7 @@ void imprimirEnArchivo(vectorADT resp, FILE * archivo){
 }
 
 static node completaVec( char * vecLinea[]){
+	
 	node aux;
 	aux.cantMov=0;
 	strcpy(aux.oaci,vecLinea[POS_OACI]);
