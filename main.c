@@ -31,7 +31,7 @@ void validarEntrada(int argc){
 
 void query1front(vectorADT Q1Ans){
 
-	FILE * arch=fopen("./Salida/movimientos_aeropuerto.csv","w+");
+	FILE * arch=fopen("./movimientos_aeropuerto.csv","w+");
 	ordenaVec(Q1Ans,2);
 	imprimirEnArchivo(Q1Ans,arch);
 	fclose(arch);
@@ -42,7 +42,7 @@ void query2Front(int Q2Ans[][CANT_CARACTERISTICA_VUELO]){
 	
 	int i;
 
-	FILE * aux=fopen("./Salida/dia_semana.csv","w+");
+	FILE * aux=fopen("./dia_semana.csv","w+");
 
 	char * dias[CANT_DIAS] = {"lunes", "martes", "miercoles", "jueves", "viernes", "sabado", "domingo"};
 
@@ -55,7 +55,7 @@ void query2Front(int Q2Ans[][CANT_CARACTERISTICA_VUELO]){
 
 void query3Front(int Q3Ans[][CANT_CLASE_VUELO], char * vecCarac[], char * vecClase[]){
 	
-	FILE * aux=fopen("./Salida/composicion.csv","w+");
+	FILE * aux=fopen("./composicion.csv","w+");
 	int i,j;
 
 	fprintf(aux, "%-25s;%-20s;%-10s\n","Clasificacion de Vuelo", "Clase de vuelo", "Movimientos");
@@ -82,7 +82,7 @@ void query1back(vectorADT Q1Ans, char * vecMov[],char *vecTipoMov[]){
 void query2back(char *vecMov[], int Q2Ans[][CANT_CARACTERISTICA_VUELO], char * carac[]){
 	
 	int i=0;
-	int dia=calcularDia(vecMov[0]);
+	int dia=calcularDia(vecMov[POS_FECHA]);
 	if(toupper(vecMov[POS_CARACTERISTICA_VUELO][0]) == 'N')
 		return;
 
@@ -96,7 +96,7 @@ void query2back(char *vecMov[], int Q2Ans[][CANT_CARACTERISTICA_VUELO], char * c
 void query3Back ( char *vecMov[], char * vecCarac[], char * vecClase[], int Q3Ans[][CANT_CLASE_VUELO]){
 
 	int x,y,i;
-	
+ 	// Si es N el vuelo es N/A no se carga entonces tengo que salir
 	if(toupper(vecMov[POS_CARACTERISTICA_VUELO][0]) == 'N')
 		return;
 
@@ -146,7 +146,7 @@ int main(int argc, char const *argv[]){
 			query1back(Q1Ans,vecMov,vecTipoMov);
 		}
 	}
-
+	
 	query3Front(Q3Ans,vecCarac,vecClase);
 	query2Front(Q2Ans);
 	query1front(Q1Ans);

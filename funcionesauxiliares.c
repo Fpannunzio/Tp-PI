@@ -5,42 +5,15 @@
 #include <ctype.h>
 
 int calcularDia(char * fecha){
+	// formula sacada de https://en.wikipedia.org/wiki/Determination_of_the_day_of_the_week#Sakamoto's_methods
 
-	int d,m,a;
+	int d,m,y;
 	d = (fecha[0] - '0') * 10 + fecha[1] - '0';
 	m = (fecha[3] - '0') * 10 + fecha[4] - '0';
-	a = (fecha[6] - '0') * 1000 + (fecha[7] - '0') * 100 + (fecha[8] - '0') * 10 + fecha[9] - '0';
+	y = (fecha[6] - '0') * 1000 + (fecha[7] - '0') * 100 + (fecha[8] - '0') * 10 + fecha[9] - '0';
 
-	return ((d += m < 3 ? a-- : a - 2, 23*m/9 + d + 4 + a/4- a/100 + a/400) - 1) % 7;
+	return ( (d += m < 3 ? y-- : y - 2, 23*m/9 + d + 4 + y/4- y/100 + y/400) - 1) % 7;
 
-	// int k,d,c,m,f;
-
-
-	// //http://mathforum.org/dr.math/faq/faq.calendar.html
-
-	// k= (fecha[0] - '0') * 10 + fecha[1] - '0';
-	// d= (fecha[8] - '0') * 10 + fecha[9] - '0';
-	// c= (fecha[6] - '0') * 10 + fecha[7] - '0';
-	// m= (fecha[3] - '0') * 10 + fecha[4] - '0';
-	
-	// if( m <= 2 ){
-	// 	d--;
-	// 	m+=10;
-	// }
-	// else 
-	// 	m-=2;
-
-	// f = k +  (int) ( (13 * m - 1) / 5) + d + (int) d/4 + (int)c/4 - 2*c;
-	
-	// f = abs(f) % 7;
-
-	// //para cambiar domingo que es 0 y queremos que sea el 6
-	// if( f == 0)
-	// 	f+=6;
-	// else
-	// 	f-=1;
-
-	// return f ;
 }
 
 int calcularLinea(char * lineaAux, char *** vector ,FILE * archivo){
@@ -73,7 +46,7 @@ int obtenerLineaTokens(char * linea, char * vec[], int dim, FILE * archivo ){
 
 	vec[0] = strtok(linea, ";");
 
-	// SI LA LINEA ESTA VACIA VEC0 DEBERIA SER NULL
+
 
 	for (int i = 1; i < dim; ++i){
 		vec[i]=strtok( NULL, ";" );	
@@ -87,7 +60,7 @@ int obtenerLineaTokens(char * linea, char * vec[], int dim, FILE * archivo ){
 
 int validarOACI(char *oaci){
 	
-	if (isalpha (oaci[0]) && isalpha(oaci[3]) && isalpha(oaci[2]))
+	if (isalpha (oaci[0]) && isalpha(oaci[1]) && isalpha(oaci[2]) && isalpha(oaci[3]))
 		return 1;
 	else 
 		return 0;
