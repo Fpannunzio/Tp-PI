@@ -15,4 +15,4 @@ tad.o: tad.h tad.c
 	gcc -c tad.h tad.c
 
 clean:
-	rm -r *.o *.h.gch
+	rm -r *.o *.h.gch dia_semana.csv movimientos_aeropuerto.csv composicion.csv
